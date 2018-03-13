@@ -2,86 +2,55 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Link } from 'react-router-dom'
-import { Card, CardText, CardTitle, CardActions } from 'material-ui/Card';
+import { Card, CardText, CardTitle } from 'material-ui/Card';
 import Chip from 'material-ui/Chip';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
 import ContentDelete from 'material-ui/svg-icons/action/delete';
 import ContentEdit from 'material-ui/svg-icons/editor/mode-edit';
 import Score from './Score';
+import NumberOfComments from './NumberOfComments';
+import Comment from './Comment';
 import AppToolbar from './AppToolbar';
-const Comment = ({ id, author, body, deletingComment, editCommentModal, postId, timestamp }) => {
-  return (
-      <Card key={id}>
-        <CardText>{author} commented on {moment(timestamp).format("MMM-DD-YYYY hh:mma")}</CardText>
-        <CardText>{body}</CardText>
-        <CardActions>
-          <FlatButton primary={ true } label="Edit" onClick={ () => editCommentModal({id, body, postId}) } />
-          <FlatButton secondary={ true } label="Delete" onClick={ () => deletingComment(id) } />
-        </CardActions>
-      </Card>
-  );
-}
-Comment.propTypes = { id: PropTypes.string.isRequired, author: PropTypes.string.isRequired, body: PropTypes.string.isRequired, deletingComment: PropTypes.func.isRequired, postId: PropTypes.string.isRequired, editCommentModal: PropTypes.func.isRequired, timestamp: PropTypes.number.isRequired }
-const NumberOfComments = ({ postId, comments }) => {
-  let number = 0;
-  if (!comments) {
-    return number;
-  }
-  if (Array.isArray(comments)) {
-    number = comments.length;
-  }
-  else {
-    if (comments[postId]) {
-      number = comments[postId].length;
-    }
-  }
-  const commentText = number === 1 ? "comment" : "comments";
-  return (
-    <CardText>{number} {commentText}</CardText>
-  );
-}
-NumberOfComments.propTypes = { postId: PropTypes.string.isRequired, comments: PropTypes.any.isRequired }
 const Post = (props) => {
-  const { changeOrderFunc, commentsOrder, comments, decScoreForPost, deletingComment, deletingPost, incScoreForPost, addCommentModal, editCommentModal, editPostModal, post } = props;
+  const { changeOrderFunc3, commentsOrder3, comments3, decScoreForPost3, deletingComment3, deletingPost3, incScoreForPost3, addCommentModal3, editCommentModal3, editPostModal3, post3 } = props;
   let commentSectionTitle = <h4>No comments</h4>;
   let commentList;
-  if (comments.length !== 0) {
+  if (comments3.length !== 0) {
     commentSectionTitle = <h4>Comments</h4>;
-    commentList = comments.map((c) =>
-      <Comment key={c.id} id={c.id} timestamp={c.timestamp} body={c.body} author={c.author} score={c.voteScore} postId={post.id} deletingComment={deletingComment} editCommentModal={editCommentModal} />
+    commentList = comments3.map((c) =>
+      <Comment id={c.id} timestamp={c.timestamp} body={c.body} author={c.author} score={c.voteScore} postId={post3.id} deletingComment={deletingComment3} editCommentModal={editCommentModal3} />
     );
   }
   return (
     <div>
-      <AppToolbar sortingTitle="Order" sort={commentsOrder} changeOrderFunc={changeOrderFunc}/>
+      <AppToolbar sortingTitle5="Order" sort5={commentsOrder3} changeOrderFunc5={changeOrderFunc3}/>
       <Card>
-        <CardTitle title={post.title} />
+        <CardTitle title={post3.title} />
         <div style={{ display: 'flex', flexWrap: 'wrap'}}>
-          <Link to={`/${post.category}`}>
+          <Link to={`/${post3.category}`}>
             <Chip style={{ marginLeft: 10 }}>
-              {post.category}
+              {post3.category}
             </Chip>
           </Link>
         </div>
-        <CardText>Date: {moment(post.timestamp).format("MMM-DD-YYYY hh:mma")} :: Author: {post.author} :: </CardText>
-        <CardText>{post.body}</CardText>        
-        <Score id={post.id} score={post.voteScore} incScoreForPost={incScoreForPost} decScoreForPost={decScoreForPost} />
-        <NumberOfComments postId={post.id} comments={comments} />
-        <RaisedButton label="Edit" onClick={() => editPostModal({ id: post.id, title: post.title, body: post.body })} style={{margin: 12}}>
+        <CardText>Date: {moment(post3.timestamp).format("MMM-DD-YYYY hh:mma")} :: Author: {post3.author} :: </CardText>
+        <CardText>{post3.body}</CardText>        
+        <Score id={post3.id} score={post3.voteScore} incScoreForPost6={incScoreForPost3} decScoreForPost6={decScoreForPost3} />
+        <NumberOfComments postId={post3.id} comments={comments3} />
+        <RaisedButton label="Edit" onClick={() => editPostModal3({ id: post3.id, title: post3.title, body: post3.body })} style={{margin: 12}}>
           <ContentEdit />
         </RaisedButton>
-        <RaisedButton onClick={() => deletingPost(post.id)} label="Delete" style={{margin: 12}}>
+        <RaisedButton onClick={() => deletingPost3(post3.id)} label="Delete" style={{margin: 12}}>
           <ContentDelete />
         </RaisedButton>
       </Card>
       { commentSectionTitle }
-      <RaisedButton label="comment" onClick={ () => addCommentModal({ postId: post.id}) } style={{ margin: 12 }} />
+      <RaisedButton label="comment" onClick={ () => addCommentModal3({ postId: post3.id}) } style={{ margin: 12 }} />
       { commentList }         
     </div>
   );
 }
-Post.defaultProps = { comments: [] }
-Post.propTypes = { comments: PropTypes.array.isRequired, incScoreForPost: PropTypes.func.isRequired, decScoreForPost: PropTypes.func.isRequired, deletingComment: PropTypes.func.isRequired, deletingPost: PropTypes.func.isRequired, addCommentModal: PropTypes.func.isRequired, editCommentModal: PropTypes.func.isRequired, editPostModal: PropTypes.func.isRequired, post: PropTypes.object.isRequired
+Post.defaultProps = { comments3: [] }
+Post.propTypes = { comments3: PropTypes.array.isRequired, incScoreForPost3: PropTypes.func.isRequired, decScoreForPost3: PropTypes.func.isRequired, deletingComment3: PropTypes.func.isRequired, deletingPost3: PropTypes.func.isRequired, addCommentModal3: PropTypes.func.isRequired, editCommentModal3: PropTypes.func.isRequired, editPostModal3: PropTypes.func.isRequired, post3: PropTypes.object.isRequired
 }
 export default Post;
