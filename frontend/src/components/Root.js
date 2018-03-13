@@ -5,11 +5,11 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import AppToolbar from './AppToolbar';
 import PostList from './PostList';
 const Root = (props) => {
-  const { changeOrder, comments, decScorePost, deletingPost, filter, filterFunc, incScorePost, addPostModal, editPostModal, posts, sort } = props;
+  const { categories, changeOrder, comments, decScorePost, deletingPost, filter, filterFunc, incScorePost, addPostModal, editPostModal, posts, sort } = props;
   return (
     <div>
-      <AppToolbar changeOrder={changeOrder} filterFunc={filterFunc} sort={sort} />
-      <PostList comments={comments} decScorePost={decScorePost} deletingPost={deletingPost} filter={filter} incScorePost={incScorePost} editPostModal={editPostModal} posts={posts} sort={sort} />
+	<AppToolbar filterTitle="Category" categories={categories} filterFunc={filterFunc} filter={filter} sortingTitle="Order" sort={sort} changeOrderFunc={changeOrder}
+      />      <PostList comments={comments} decScorePost={decScorePost} deletingPost={deletingPost} filter={filter} incScorePost={incScorePost} editPostModal={editPostModal} posts={posts} sort={sort} />
       <FloatingActionButton style={{ margin: 20 }} onClick={ addPostModal } >
         <ContentAdd />
       </FloatingActionButton>
