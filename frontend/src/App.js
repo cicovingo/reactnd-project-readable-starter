@@ -141,7 +141,7 @@ class App extends Component {
     return (
       <div>
         <Dialog title="Comment" actions={actions} modal={true} open={this.state.addingCommentModal}>
-          <form onSubmit={this.addCommentSubmit}>
+           <form onSubmit={this.addCommentSubmit}>
             <TextField name="comment" value={this.state.comment} onChange={this.commentChange} hintText="Comment" floatingLabelText="Comment"/>           
             <br/>
             <TextField name="author" value={this.state.author} onChange={this.commentChange} hintText="Author" floatingLabelText="Author"/>
@@ -202,7 +202,7 @@ class App extends Component {
     )
   }
   render() {
-    const {  categories, changeSortOrder, commentsOrder, changeCommentsOrder, comments, decPostScore, deletingForComment, deletingForPost, filter, filterCategory, incPostScore, posts, sort } = this.props;
+    const { changeSortOrder, commentsOrder, changeCommentsOrder, comments, decPostScore, deletingForComment, deletingForPost, filter, filterCategory, incPostScore, posts, sort } = this.props;
     return (
      <Router history={history}>
       <div>
@@ -213,7 +213,7 @@ class App extends Component {
           const postComments = comments[postId];
           return (
             <div>
-              <Post post={post} comments={postComments} commentsOrder={commentsOrder} changeOrderFunc={changeCommentsOrder} decScoreForPost={decPostScore} deletingComment={deletingForComment} deletingPost={deletingForPost} incScoreForPost={incPostScore} addCommentModal={this.addCommentModal} editCommentModal={this.editCommentModal} editPostModal={this.editPostModal} />
+              <Post post3={post} comments3={postComments} commentsOrder3={commentsOrder} changeOrderFunc3={changeCommentsOrder} decScoreForPost3={decPostScore} deletingComment3={deletingForComment} deletingPost3={deletingForPost} incScoreForPost3={incPostScore} addCommentModal3={this.addCommentModal} editCommentModal3={this.editCommentModal} editPostModal3={this.editPostModal} />
               { this.renderAddCommentModal(post) }
               { this.renderEditCommentModal(post) }
               { this.renderEditPostModal() }
@@ -222,13 +222,13 @@ class App extends Component {
         }} />
         <Route exact path="/:category" render={ ({ match }) => (
           <div>
-            <Category changeOrder={changeSortOrder} comments={comments} decScorePost={decPostScore} deletingPost={deletingForPost} filter={match.params.category} incScorePost={incPostScore} editPostModal={this.editPostModal} posts={posts} sort={sort} />
+            <Category changeOrder2={changeSortOrder} comments2={comments} decScorePost2={decPostScore} deletingPost2={deletingForPost} filter2={match.params.category} incScorePost2={incPostScore} editPostModal2={this.editPostModal} posts2={posts} sort2={sort} />
             { this.renderEditPostModal() }
           </div>
         )} />
         <Route exact path="/" render={ () => (
           <div>
-            <Root categories={categories} changeOrder={changeSortOrder} comments={comments} decScorePost={decPostScore} deletingPost={deletingForPost} filter={filter} filterFunc={filterCategory} incScorePost={incPostScore} addPostModal={this.addPostModal} editPostModal={this.editPostModal} posts={posts} sort={sort} />
+            <Root changeOrder1={changeSortOrder} comments1={comments} decScorePost1={decPostScore} deletingPost1={deletingForPost} filter1={filter} filterFunc1={filterCategory} incScorePost1={incPostScore} addPostModal1={this.addPostModal} editPostModal1={this.editPostModal} posts1={posts} sort1={sort} />
             { this.renderAddPostModal() }
             { this.renderEditPostModal() }
           </div>
