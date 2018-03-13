@@ -30,17 +30,17 @@ NumberOfComments.propTypes = {
   postId: PropTypes.string.isRequired,
   comments: PropTypes.any.isRequired
 }
-const PostList = ({ comments, decScorePost, deletingPost, filter, incScorePost, editPostModal, posts, sort }) => {
+const PostList = ({ comments4, decScorePost4, deletingPost4, filter4, incScorePost4, editPostModal4, posts4, sort4 }) => {
   let filteredPosts = [];
-  if (filter !== '') {
-    filteredPosts = posts.filter((p) => p.category === filter)
+  if (filter4 !== '') {
+    filteredPosts = posts4.filter((p) => p.category === filter4)
   } else {
-    filteredPosts = posts;
+    filteredPosts = posts4;
   }
-  if (sort.order === 'asc') {
-    filteredPosts.sort( (a, b) => a[sort.field] - b[sort.field] )
+  if (sort4.order === 'asc') {
+    filteredPosts.sort( (a, b) => a[sort4.field] - b[sort4.field] )
   } else {
-    filteredPosts.sort( (a, b) => b[sort.field] - a[sort.field] )
+    filteredPosts.sort( (a, b) => b[sort4.field] - a[sort4.field] )
   }
   return (
     <div>
@@ -66,22 +66,22 @@ const PostList = ({ comments, decScorePost, deletingPost, filter, incScorePost, 
         <Score
           id={p.id}
           score={p.voteScore}
-          incScoreForPost={incScorePost}
-          decScoreForPost={decScorePost}
+          incScoreForPost6={incScorePost4}
+          decScoreForPost6={decScorePost4}
         />
         <NumberOfComments
           postId={p.id}
-          comments={comments}
+          comments={comments4}
         />
         <RaisedButton
           label="Edit"
-          onClick={() => editPostModal({ id: p.id, title: p.title, body: p.body })}
+          onClick={() => editPostModal4({ id: p.id, title: p.title, body: p.body })}
           style={{margin: 12}}
         >
           <ContentEdit />
         </RaisedButton>  
         <RaisedButton
-          onClick={() => deletingPost(p.id)}
+          onClick={() => deletingPost4(p.id)}
           label="Delete"
           style={{margin: 12}}
         >
@@ -92,5 +92,5 @@ const PostList = ({ comments, decScorePost, deletingPost, filter, incScorePost, 
     </div>
   );
 }
-PostList.propTypes = { comments: PropTypes.object.isRequired, decScorePost: PropTypes.func.isRequired, deletingPost: PropTypes.func.isRequired, filter: PropTypes.string.isRequired, incScorePost: PropTypes.func.isRequired, editPostModal: PropTypes.func.isRequired, posts: PropTypes.array.isRequired, sort: PropTypes.object.isRequired }
+PostList.propTypes = { comments4: PropTypes.object.isRequired, decScorePost4: PropTypes.func.isRequired, deletingPost4: PropTypes.func.isRequired, filter4: PropTypes.string.isRequired, incScorePost4: PropTypes.func.isRequired, editPostModal4: PropTypes.func.isRequired, posts4: PropTypes.array.isRequired, sort4: PropTypes.object.isRequired }
 export default PostList;
