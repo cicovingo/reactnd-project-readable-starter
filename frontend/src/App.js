@@ -7,14 +7,14 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import * as uuid from 'uuid/v1';
 import history from './history';
-import { addingForComment, addingForPost, changeOrder, decPostScore, deletingForComment, deletingForPost, editingForComment, editingForPost, getAllCategory, getAllComment, getAllPost, incPostScore, filterCategory } from './actions';
+import { addingForComment, addingForPost, changeCommentsOrder, changeSortOrder, decPostScore, deletingForComment, deletingForPost, editingForComment, editingForPost, getAllCategory, getAllComment, getAllPost, incPostScore, filterCategory } from './actions';
 import Root from './components/Root';
 import Category from './components/Category';
 import Post from './components/Post';
 class App extends Component {
   state = { author: '', comment: '', commentId: '', addingCommentModal: false, addingPostModal: false, editingCommentModal: false, editingPostModal: false, postId: '', postTitle: '', postBody: '', postAuthor: '', postCategory: '', postEditId: '', postEditTitle: '', postEditBody: '' }
   componentWillMount() {
-    this.props.getAllCategory();
+    this.props.getAllCategories();
     this.props.getAllPost();
   }
   addPostModal = () => {
@@ -202,7 +202,7 @@ class App extends Component {
     )
   }
   render() {
-    const {  changeOrder, comments, decPostScore, deletingForComment, deletingForPost, filter, filterCategory, incPostScore, posts, sort } = this.props;
+    const {  categories, changeSortOrder, commentsOrder, changeCommentsOrder, comments, decPostScore, deletingForComment, deletingForPost, filter, filterCategory, incPostScore, posts, sort } = this.props;
     return (
      <Router history={history}>
       <div>
@@ -213,7 +213,7 @@ class App extends Component {
           const postComments = comments[postId];
           return (
             <div>
-              <Post post={post} changeOrder={changeOrder} comments={postComments} decScoreForPost={decPostScore} deletingComment={deletingForComment} deletingPost={deletingForPost} incScoreForPost={incPostScore} addCommentModal={this.addCommentModal} editCommentModal={this.editCommentModal} editPostModal={this.editPostModal} />
+              <Post post={post} comments={postComments} commentsOrder={commentsOrder} changeOrderFunc={changeCommentsOrder} decScoreForPost={decPostScore} deletingComment={deletingForComment} deletingPost={deletingForPost} incScoreForPost={incPostScore} addCommentModal={this.addCommentModal} editCommentModal={this.editCommentModal} editPostModal={this.editPostModal} />
               { this.renderAddCommentModal(post) }
               { this.renderEditCommentModal(post) }
               { this.renderEditPostModal() }
@@ -222,13 +222,13 @@ class App extends Component {
         }} />
         <Route exact path="/:category" render={ ({ match }) => (
           <div>
-            <Category changeOrder={changeOrder} comments={comments} decScorePost={decPostScore} deletingPost={deletingForPost} filter={match.params.category} incScorePost={incPostScore} editPostModal={this.editPostModal} posts={posts} sort={sort} />
+            <Category changeOrder={changeSortOrder} comments={comments} decScorePost={decPostScore} deletingPost={deletingForPost} filter={match.params.category} incScorePost={incPostScore} editPostModal={this.editPostModal} posts={posts} sort={sort} />
             { this.renderEditPostModal() }
           </div>
         )} />
         <Route exact path="/" render={ () => (
           <div>
-            <Root changeOrder={changeOrder} comments={comments} decScorePost={decPostScore} deletingPost={deletingForPost} filter={filter} filterFunc={filterCategory} incScorePost={incPostScore} addPostModal={this.addPostModal} editPostModal={this.editPostModal} posts={posts} sort={sort} />
+            <Root categories={categories} changeOrder={changeSortOrder} comments={comments} decScorePost={decPostScore} deletingPost={deletingForPost} filter={filter} filterFunc={filterCategory} incScorePost={incPostScore} addPostModal={this.addPostModal} editPostModal={this.editPostModal} posts={posts} sort={sort} />
             { this.renderAddPostModal() }
             { this.renderEditPostModal() }
           </div>
@@ -249,8 +249,11 @@ const mapDispatchToProps = (dispatch) => {
 	addingForPost(data) {
       dispatch(addingForPost(data));
     },
-	changeOrder(sort){
-      dispatch(changeOrder(sort));
+	changeSortOrder(sort){
+      dispatch(changeSortOrder(sort));
+    },
+    changeCommentsOrder(order) {
+      dispatch(changeCommentsOrder(order));
     },
 	decPostScore(id){
       dispatch(decPostScore(id));
@@ -267,7 +270,7 @@ const mapDispatchToProps = (dispatch) => {
 	editingForPost(data) {
       dispatch(editingForPost(data));
     },
-    getAllCategory(){
+    getAllCategories(){
       dispatch(getAllCategory());
     },
 	getAllComment(postId) {
