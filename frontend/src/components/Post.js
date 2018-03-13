@@ -43,7 +43,7 @@ const NumberOfComments = ({ postId, comments }) => {
 }
 NumberOfComments.propTypes = { postId: PropTypes.string.isRequired, comments: PropTypes.any.isRequired }
 const Post = (props) => {
-  const { changeOrder, comments, decScoreForPost, deletingComment, deletingPost, incScoreForPost, addCommentModal, editCommentModal, editPostModal, post } = props;
+  const { changeOrderFunc, commentsOrder, comments, decScoreForPost, deletingComment, deletingPost, incScoreForPost, addCommentModal, editCommentModal, editPostModal, post } = props;
   let commentSectionTitle = <h4>No comments</h4>;
   let commentList;
   if (comments.length !== 0) {
@@ -54,7 +54,7 @@ const Post = (props) => {
   }
   return (
     <div>
-      <AppToolbar changeOrder={changeOrder} />
+      <AppToolbar sortingTitle="Order" sort={commentsOrder} changeOrderFunc={changeOrderFunc}/>
       <Card>
         <CardTitle title={post.title} />
         <div style={{ display: 'flex', flexWrap: 'wrap'}}>
@@ -82,6 +82,6 @@ const Post = (props) => {
   );
 }
 Post.defaultProps = { comments: [] }
-Post.propTypes = { changeOrder: PropTypes.func.isRequired, comments: PropTypes.array.isRequired, incScoreForPost: PropTypes.func.isRequired, decScoreForPost: PropTypes.func.isRequired, deletingComment: PropTypes.func.isRequired, deletingPost: PropTypes.func.isRequired, addCommentModal: PropTypes.func.isRequired, editCommentModal: PropTypes.func.isRequired, editPostModal: PropTypes.func.isRequired, post: PropTypes.object.isRequired
+Post.propTypes = { comments: PropTypes.array.isRequired, incScoreForPost: PropTypes.func.isRequired, decScoreForPost: PropTypes.func.isRequired, deletingComment: PropTypes.func.isRequired, deletingPost: PropTypes.func.isRequired, addCommentModal: PropTypes.func.isRequired, editCommentModal: PropTypes.func.isRequired, editPostModal: PropTypes.func.isRequired, post: PropTypes.object.isRequired
 }
 export default Post;
