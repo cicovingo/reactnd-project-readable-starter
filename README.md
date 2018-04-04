@@ -9,7 +9,6 @@
 * In another terminal window, install and start the frontend's codebase 
     - `cd frontend`
     - `npm install`
-    - `npm install --save reactstrap`
     - `npm start`
 
 * Then, access http://localhost:3000 to run the frontend application.
