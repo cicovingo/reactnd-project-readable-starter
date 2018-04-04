@@ -1,0 +1,51 @@
+import { Card, CardText, CardTitle, CardActions } from 'material-ui/Card';
+import { connect } from 'react-redux';
+import { FaThumbsOUp, FaThumbsODown, FaTrashO } from 'react-icons/lib/fa';  
+import { Link } from 'react-router-dom';
+import FlatButton from 'material-ui/FlatButton';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+
+import { votePost, deletePost } from '../../actions/index';
+
+class AppPost extends Component {  
+
+  deleteForHandle = () => {
+    this.props.deletePost(this.props.post.id);
+  }
+  handleVote = (vote) => {
+    this.props.votePost(this.props.post.id, vote);
+  }
+  countOfComments = () => {   
+      return `Number of Comments: ${this.props.post.comments}`;
+  }
+  render() {
+    const { post } = this.props;
+    return (
+      <Card className="c">
+        <div className="a">
+        </div>
+          <CardTitle>
+            <Link to={`/${post.category}/${post.id}`}>
+              {post.title}
+            </Link>
+          </CardTitle>
+          <CardText>
+			<p>{post.body}</p>
+            <p>Author: {post.author}</p>
+            <p>{this.countOfComments()}</p>		
+          </CardText>
+        <div className="b">
+          <CardActions>
+            <FlatButton onClick={this.deleteForHandle}><FaTrashO /></FlatButton>
+			<FlatButton onClick={() => this.handleVote('upVote')}><FaThumbsOUp /></FlatButton>
+            <FlatButton>{post.voteScore}</FlatButton>
+            <FlatButton onClick={() => this.handleVote('downVote')}><FaThumbsODown /></FlatButton>
+          </CardActions>
+        </div>
+      </Card>
+    );
+  }
+}
+AppPost.propTypes = {post: PropTypes.object.isRequired,votePost: PropTypes.func,deletePost: PropTypes.func};
+export default connect(null,{votePost: votePost,deletePost: deletePost})(AppPost);
