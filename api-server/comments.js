@@ -60,7 +60,6 @@ function add (token, comment) {
 
     comments[comment.id] = {
       id: comment.id,
-      timestamp: comment.timestamp,
       body: comment.body,
       author: comment.author,
       parentId: comment.parentId,
