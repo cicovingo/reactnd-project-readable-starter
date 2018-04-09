@@ -14,7 +14,6 @@ class AppPostComment extends Component {
   }
   editForHandle = () => {
     this.setState({ edit: !this.state.edit });
-    this.props.editComment(this.props.comment.id);
     <CreateComment edit post={this.props.post}/>
   }
   handleVote = (vote) => {
