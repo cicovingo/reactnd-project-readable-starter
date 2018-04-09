@@ -31,12 +31,12 @@ class CreateComment extends Component {
       <form onSubmit={this.submitForm}>
 		<TextField type="text" name="author" id="author" value={this.state.author} onChange={this.change} placeholder="author" />
         <br/>
-        <TextField type="textarea" name="body" id="body" value={this.state.body} onChange={this.change} placeholder="Comment" />
+        <TextField type="textarea" name="body" id="body" value={this.state.body} onChange={this.change} placeholder="Comment" readOnly={this.props.edit}/>
         <br/>
         <Button color="primary">Submit</Button>
       </form>
     );
   }
 }
-CreateComment.propTypes = {addComment: PropTypes.func,comment: PropTypes.object,parentId: PropTypes.string};
+CreateComment.propTypes = {addComment: PropTypes.func,comment: PropTypes.object,edit: PropTypes.bool,parentId: PropTypes.string};
 export default connect(null,{addComment: addComment})(CreateComment);
