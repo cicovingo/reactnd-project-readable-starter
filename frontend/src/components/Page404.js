@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 class Page404 extends Component {
