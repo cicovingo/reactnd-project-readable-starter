@@ -9,7 +9,7 @@ import { fetchPosts, sortOrder } from '../actions/index';
 class Root extends Component {
   constructor(props) {
     super(props);
-    this.state = {value: 3};
+    this.state = {value: 1};
   }
   componentDidMount() {
     if (this.props.match.params.category)
@@ -21,7 +21,7 @@ class Root extends Component {
   	return this.props.sortOrder(sortType);
   }
   handleChange = (event, index, value) => {
-	if(value === 3){
+	if(value === 1){
 		this.sort('voteScore')
 	} else if(value === 2){
 		this.sort('-voteScore')
@@ -33,9 +33,8 @@ class Root extends Component {
     return (
       <div>
 	<DropDownMenu value={this.state.value} onChange={this.handleChange}>
-		<MenuItem value={1} primaryText="SortBy" />
-		<MenuItem value={2} primaryText="Popular Post" />
-		<MenuItem value={3} primaryText="Not Popular Post" />
+		<MenuItem value={1} primaryText="Popular Post" />
+		<MenuItem value={2} primaryText="Not Popular Post" />
 	</DropDownMenu>
         {this.props.posts.map((post) => <AppPost key={post.id} post={post}/>)}
       </div>
@@ -60,7 +59,6 @@ const mapStateToProps = ({ post }) => {
 	console.log(posts.sortBy);
     if (post.sortBy){
 		posts.sort(fromSort(post.sortBy));
-		console.log("bbbbbbbbbbbbbbb");
 	}
     return { posts };
   } else
