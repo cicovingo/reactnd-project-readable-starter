@@ -17,7 +17,7 @@ const commentR = (state={}, action) => {
     case 'DELETE_COMMENT':
       return { ...state, comments: { ...state.comments, [action.id]: null }};
     case 'EDIT_COMMENT':
-      return { ...state, comments: { ..state.comments, [action.id]: comment }};
+      return { ...state, comments: { ...state.comments, [action.id]: comment }};
 	case 'FETCH_COMMENTS':
       return { ...state, comments: comments.reduce((a, b) => { a[b.id] = b; return a; }, {})};
     case 'VOTE_COMMENT':
