@@ -1,20 +1,25 @@
 import { Card, CardText, CardTitle, CardActions } from 'material-ui/Card';
 import { connect } from 'react-redux';
-import { FaThumbsOUp, FaThumbsODown, FaTrashO } from 'react-icons/lib/fa';  
+import { FaPencil, FaThumbsOUp, FaThumbsODown, FaTrashO } from 'react-icons/lib/fa';  
 import { Link } from 'react-router-dom';
 import FlatButton from 'material-ui/FlatButton';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
+import CreatePost from '../Create/CreatePost';
 import { votePost, deletePost } from '../../actions/index';
 
 class AppPost extends Component {  
-
+  state = { edit: false }
   deleteForHandle = () => {
     this.props.deletePost(this.props.post.id);
   }
   handleVote = (vote) => {
     this.props.votePost(this.props.post.id, vote);
+  }
+  editForHandle = () => {
+    this.setState({ edit: !this.state.edit });
+    <CreatePost edit post={this.props.post}/>
   }
   countOfComments = () => {   
       return `Number of Comments: ${this.props.post.comments}`;
@@ -38,6 +43,7 @@ class AppPost extends Component {
         <div className="b">
           <CardActions>
             <FlatButton onClick={this.deleteForHandle}><FaTrashO /></FlatButton>
+			<FlatButton onClick={this.editForHandle}><FaPencil /></FlatButton>
 			<FlatButton onClick={() => this.handleVote('upVote')}><FaThumbsOUp /></FlatButton>
             <FlatButton>{post.voteScore}</FlatButton>
             <FlatButton onClick={() => this.handleVote('downVote')}><FaThumbsODown /></FlatButton>
