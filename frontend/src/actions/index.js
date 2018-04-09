@@ -84,7 +84,7 @@ export const fetchPosts = (category) => (dispatch) => {
 axoisPages.fetchPostsByCategory = (category) => axios.get(`${URL}/${category}/posts`).then((res) => fetchCommentCount(res.data));
 axoisPages.fetchPagePosts = () => axios.get(`${URL}/posts`).then((res) => fetchCommentCount(res.data));
 const fetchCommentCount = (lengthOfArr) => {
-  const lengthOfPromise = lengthOfArr.map((post) => axoisPages.fetcApiComments(post.id));
+  const lengthOfPromise = lengthOfArr.map((post) => axoisPages.fetchPageComments(post.id));
   return axios.all(lengthOfPromise).then((lengthOfResult) => lengthOfResult.map((result) => result.length)).then((lengthArr) => lengthArr.map((length, index) => {
 	  lengthOfArr[index].comments = length;
       return lengthOfArr[index];
