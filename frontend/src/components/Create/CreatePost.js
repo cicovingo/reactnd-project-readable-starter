@@ -40,14 +40,14 @@ class CreatePost extends Component {
           ))}
         </Input>
         <br/>
-        <TextField type="textarea" id="body" name="body" value={this.state.body} onChange={this.change} hintText="Post body" floatingLabelText="Post body"/>
+        <TextField type="textarea" id="body" name="body" value={this.state.body} onChange={this.change} hintText="Post body" floatingLabelText="Post body" readOnly={this.props.edit}/>
 		<br/>
 		<Button color="primary">Submit</Button>
       </form>
     );
   }
 }
-CreatePost.propTypes = {addPost: PropTypes.func,categories: PropTypes.array,post: PropTypes.object};
+CreatePost.propTypes = {addPost: PropTypes.func,categories: PropTypes.array,edit: PropTypes.bool,post: PropTypes.object};
 CreatePost.defaultProps = {categories: []};
 const mapStateToProps = ({ category }) => ({...category});
 export default connect(mapStateToProps,{addPost: addPost})(CreatePost);
